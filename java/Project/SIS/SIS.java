@@ -1,4 +1,4 @@
-package SIS;
+package Project.SIS;
 
 public class SIS {
   public static void main(String args[]){
