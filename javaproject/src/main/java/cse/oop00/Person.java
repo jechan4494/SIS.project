@@ -4,21 +4,32 @@
  */
 package cse.oop00;
 
-public abstract class Person {
-    protected String id;        // 학번 또는 교수 번호
-    protected String name;      // 이름
-    protected String department; // 학과
-    protected String ssn;       // 주민번호
+public class Person {
+    private String occupation;
+    private String id;        
+    private String name;     
+    private String department; 
+    private String ssn;       
 
-    // 생성자
-    public Person(String id, String name, String department, String ssn) {
+   
+    public Person(String occupation, String id, String name, String department, String ssn) {
+        this.occupation = occupation;
         this.id = id;
         this.name = name;
         this.department = department;
         this.ssn = ssn;
     }
 
-    // getter와 setter
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+    
+
+    
     public String getId() {
         return id;
     }
@@ -56,6 +67,4 @@ public abstract class Person {
         return "ID: " + id + ", Name: " + name + ", Department: " + department + ", SSN: " + ssn;
     }
 
-    // 추상 메서드 (학생과 교수는 다른 처리 로직을 가질 수 있음)
-    public abstract String getRole();
 }
