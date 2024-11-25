@@ -12,14 +12,14 @@ import java.util.Scanner;
  */
 public class Dolist {
 // (사용자 추가 및 제거 입력 받기)
-//.matches("^\\\\d+$") 정수인지 확인하는거
+// .matches("^\\d+$") 정수인지 확인하는거
 
     public Dolist() {
     }
 
     public void dolist() { //기능 목록 제시
         Scanner scanner = new Scanner(System.in); //입력 받기 위한 scanner
-        UserManager userManager = new UserManager(); 
+        UserManager userManager = new UserManager();
         boolean running = true;
         User currentUser = null; //TODO 로그인 기능이랑 결합할때 사용 - 당장 미사용
 
@@ -33,7 +33,7 @@ public class Dolist {
             System.out.println("5. 종료");
             System.out.print("원하는 작업을 선택하세요: ");
             String choice = scanner.nextLine(); //입력 받기
-            if (!(choice.matches("^\\\\d+$")) && choice.equals("")) { //필요 없음
+            if (!(choice.matches("^[0-9]*$")) && choice.equals("")) { //필요 없음
                 System.out.print("잘못된 선택입니다. 다시 시도하세요");
                 continue loop1;
             }
@@ -63,43 +63,45 @@ public class Dolist {
 
                     switch (userType1) {
                         case 1:
-                            if (!(id.startsWith("S") && id.length() == 4 && !id.substring(1, 4).matches("^\\\\d+$"))) { 
-                            //정해진 시작 알파벳검사 + 길이 검사 + 뒷3자리 숫자인지 검사
+                            if (!(id.startsWith("S") && id.length() == 4 && id.substring(1, 4).matches("^\\d+$"))) {
+                                //정해진 시작 알파벳검사 + 길이 검사 + 뒷3자리 숫자인지 검사
                                 System.out.print("잘못된 아이디 방식입니다.");
                                 continue loop1; //일단은 가장 밖으로 탈출하는데 필요시 위치 변경하면 됨
                             }
                             break;
                         case 2:
-                            if (!(id.startsWith("P") && id.length() == 4 && !id.substring(1, 4).matches("^\\\\d+$"))) {
+                            if (!(id.startsWith("P") && id.length() == 4 && id.substring(1, 4).matches("^\\d+$"))) {
                                 System.out.print("잘못된 아이디 방식입니다.");
                                 continue loop1;
                             }
                             break;
                         case 3:
-                            if (!(id.startsWith("G") && id.length() == 4 && !id.substring(1, 4).matches("^\\\\d+$"))) {
+                            if (!(id.startsWith("G") && id.length() == 4 && id.substring(1, 4).matches("^\\d+$"))) {
                                 System.out.print("잘못된 아이디 방식입니다.");
                                 continue loop1;
                             }
                             break;
                         case 4:
-                            if (!(id.startsWith("H") && id.length() == 4 && !id.substring(1, 4).matches("^\\\\d+$"))) {
+                            if (!(id.startsWith("H") && id.length() == 4 && id.substring(1, 4).matches("^\\d+$"))) {
                                 System.out.print("잘못된 아이디 방식입니다.");
                                 continue loop1;
                             }
                             break;
 
+                            /**
                         case 5: //쓸일 없음
                             System.out.print("종료");
                             //choice = null;
-                            continue loop1; //루프1로 돌아가기전에 ID입력창이 뜸
-
+                            continue loop1; //루프1로 돌아가기전에 ID입력창이 뜸 - 실행순서때문에 그럼
+                            */
+                            
                         default:
                             System.out.println("잘못된 선택입니다. 다시 시도하세요.");
 
                     }
                     System.out.print("Password: ");
                     password = scanner.nextLine();
-                    if (!(password.length() == 7 && !password.matches("^\\\\d+$"))) { //비밀번호 길이(주민등록번호 7자리)+정수인지 검사
+                    if (!(password.length() == 7 && password.matches("^\\d+$"))) { //비밀번호 길이(주민등록번호 7자리)+정수인지 검사
                         System.out.print("잘못된 비밀번호 방식입니다.");
                         //초기 암호만 입력해주는거니까 무조건 주민번호 뒷자리여야하고 정수형인지 확인하는 이유임
                         // 나중에 비번 변경시에는 문자 사용 가능
@@ -110,12 +112,13 @@ public class Dolist {
                     if (!(email.endsWith(".com") && email.contains("@"))) { //메일 맞는지 검사'
                         //제대로 된 검사는 아님 마지막 뒷문자가 .com인지 확인과 문자 사이에 @들어가 있는지 검사하는 코드임
                         //ex= @12313124.com해도 내부적으로 제대로 된 이메일로 처리함
+                        //TODO 정규표현식 찿아보기 -  "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";) ->이거도 유효한 이메일인지는 확인 못함
                         System.out.print("잘못된 메일 방식입니다.");
                         continue loop1;
                     }
 
                     User user = null; //리스트에 추가할 객체 임시 저장
-                    
+
                     switch (userType1) {
                         case 1:
                             user = new Student(id, password, email); //위에 만든 임시저장공간에 각 사용자별 아이디 비번 메일 넣음
@@ -155,7 +158,7 @@ public class Dolist {
                         System.out.println("해당 사용자는 존재하지 않습니다.");
                         break;
                     }
-                    System.out.println("원래 비밀번호를 입력해주세요"); 
+                    System.out.println("원래 비밀번호를 입력해주세요");
                     OriginalPW = scanner.nextLine();
                     System.out.println("바꿀 비밀번호를 입력해주세요");
                     ChangePW = scanner.nextLine();

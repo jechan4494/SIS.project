@@ -15,8 +15,21 @@ public class User {
     //student = 1, profeesor = 2 , employee = 3, 필요시 권한 추가 
     protected String id;
     protected String password;
-    protected String email;
-    protected int permission; //아직 선언만 하고 따로 건들지는 않음
+    protected int permission; //권한 - 아직 선언만 하고 따로 건들지는 않음
+    
+    
+    // 사용자 유형/  이름  / 학번 /   전공   /    주민등록번호   / 주소        /   메일     
+    // Student  / 홍길동 / S123 / 전산학과 / 000000 - 1234567 /  부산시 ~  / asdaf@naver.com
+    
+    //사용자 유형은 상속으로 처리
+    protected String name; //이름
+    protected String number; //학번/교수번호/직원번호
+    protected int Major; //전공 - 숫자로 처리해도 됨  "전산학과 = 1", "전자공학과 = 2", "화학공학과 = 3", "기계공학과 = 4", "항공우주공학과 = 5"
+    protected String Security_num; //주민등록번호
+    protected String address; //주소
+    protected String email; //메일
+    
+
 
     // 생성자
     public User(String id, String password, String email) {
@@ -40,6 +53,12 @@ public class User {
     //비번 변경 메소드
     public void ChangePW(String password) {
         this.password = password;
+    }
+    
+    //권한 확인 메소드 - 단순히 권한 보여주는 메소드
+    
+    public int CheckPermission(User user){
+        return user.permission;
     }
 
 }

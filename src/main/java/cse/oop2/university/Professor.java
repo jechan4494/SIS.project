@@ -10,7 +10,6 @@ package cse.oop2.university;
  */
 public class Professor extends User{
     
-    private String Major;
     
     public Professor(String id, String password, String email) {
         super(id, password, email);
