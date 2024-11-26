@@ -10,19 +10,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hanjaejin
  */
 public class LoadPerson {
-    ArrayList<Person> loadperson = new ArrayList<>();
     
+    ArrayList<Person> loadperson = new ArrayList<>();
+
     String paths = System.getProperty("user.dir");
     File PersonFile = new File(paths + "/PersonList.txt");
-    
-    public LoadPerson(DefaultTableModel model){
+
+    public LoadPerson(DefaultTableModel model) {
         LoadPersonList();
-        for(int i=0;i<loadperson.size();i++){
+        for (int i = 0; i < loadperson.size(); i++) {
             model.addRow(new Object[]{
                 loadperson.get(i).getOccupation(),
                 loadperson.get(i).getId(),
@@ -32,18 +34,25 @@ public class LoadPerson {
             });
         }
     }
-    
-    private void LoadPersonList(){
+
+    LoadPerson() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void LoadPersonList() {
         String line;
-        try (BufferedReader br = new BufferedReader(new FileReader(PersonFile))){//* 메모장에서 한 줄씩 불러옴
-            while((line = br.readLine()) !=  null){
+        try (BufferedReader br = new BufferedReader(new FileReader(PersonFile))) {//* 메모장에서 한 줄씩 불러옴
+            while ((line = br.readLine()) != null) {
                 String[] data = line.split("\t");
-                loadperson.add(new Person(data[0],data[1],data[2],data[3],data[4]));
-            
+                loadperson.add(new Person(data[0], data[1], data[2], data[3], data[4]));
             }
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
+    DefaultTableModel loadFromFile(File personFile) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

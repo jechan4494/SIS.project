@@ -4,6 +4,8 @@
  */
 package cse.oop00;
 
+import java.io.File;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -11,6 +13,9 @@ import javax.swing.table.DefaultTableModel;
  * @author hanjaejin
  */
 public class AcademicManagementFrame extends javax.swing.JFrame {
+
+    String paths = System.getProperty("user.dir");
+    File personFile = new File(paths + "/PersonList.txt");
 
     /**
      * Creates new form AcademicManagementFrame
@@ -36,13 +41,13 @@ public class AcademicManagementFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         menuTable = new javax.swing.JTable();
-        searchComboBox = new javax.swing.JComboBox<>();
         searchButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
         changeButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        refreshButton = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,17 +79,53 @@ public class AcademicManagementFrame extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(menuTable);
 
-        searchComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         searchButton.setText("검색");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         addButton.setText("등록");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
 
-        changeButton.setText("수정");
+        changeButton.setText("저장");
+        changeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("삭제");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         closeButton.setText("닫기");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        refreshButton.setText("새로고침");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,25 +136,26 @@ public class AcademicManagementFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(226, 226, 226)
                         .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(searchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(searchButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(addButton)
-                                .addGap(77, 77, 77)
-                                .addComponent(changeButton)
-                                .addGap(87, 87, 87)
-                                .addComponent(deleteButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(closeButton))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(95, 95, 95)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(searchButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(refreshButton))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(addButton)
+                                    .addGap(77, 77, 77)
+                                    .addComponent(changeButton)
+                                    .addGap(87, 87, 87)
+                                    .addComponent(deleteButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(closeButton))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -124,9 +166,9 @@ public class AcademicManagementFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(searchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(searchButton))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchButton))
+                    .addComponent(refreshButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
@@ -140,12 +182,53 @@ public class AcademicManagementFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void LoadPersonList(){
+
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        dispose();
+    }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        AddPersonFrame next = new AddPersonFrame();
+        next.setVisible(true); //다음 창 넘어가
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        LoadPersonList();
+        jTextField1.setText("");
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void changeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeButtonActionPerformed
+        if (menuTable.getCellEditor() != null) {
+            menuTable.getCellEditor().stopCellEditing();
+        }
+        new ChangeSaveFile(menuTable, personFile);
+        JOptionPane.showMessageDialog(null,"저장되었습니다.");
+    }//GEN-LAST:event_changeButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        int selectedRow = menuTable.getSelectedRow();
+        if(selectedRow == -1){
+            JOptionPane.showMessageDialog(this,"삭제할 목록을 선택하시오.","오류입니다",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) menuTable.getModel();
+        model.removeRow(selectedRow);
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+      
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void LoadPersonList() {
         DefaultTableModel personlist = (DefaultTableModel) menuTable.getModel();
+        personlist.setNumRows(0);
         new LoadPerson(personlist);
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -179,6 +262,7 @@ public class AcademicManagementFrame extends javax.swing.JFrame {
                 new AcademicManagementFrame().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -194,7 +278,7 @@ public class AcademicManagementFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTable menuTable;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JButton searchButton;
-    private javax.swing.JComboBox<String> searchComboBox;
     // End of variables declaration//GEN-END:variables
 }
