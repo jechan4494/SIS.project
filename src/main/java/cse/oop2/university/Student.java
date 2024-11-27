@@ -13,8 +13,8 @@ public class Student extends User {
   
     private int grade; //학년
 
-    public Student(String id, String password, String email) {
-        super(id, password, email);
+    public Student(String id, String password,String name, String number, int Major, String Security_num, String address, String email) {
+        super(id, password,name,number, Major ,Security_num,address, email);
         permission = 1;
     }
 

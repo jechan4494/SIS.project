@@ -56,9 +56,15 @@ public class Dolist {
 
                     String id = null; //임시 저장 공간
                     String password = null;
-                    String email = null;
+                    String name = null;     //이름
+                    String number = null;   //학번 - 영어 들어가서 string 사용 
+                    String MajorString = null;
+                    int Major = 0;          //전공
+                    String Security_num = null; //주민번호
+                    String address = null;      //주소
+                    String email = null;        //메일
 
-                    System.out.print("ID: ");
+                    System.out.print("ID&학번: ");
                     id = scanner.nextLine();
 
                     switch (userType1) {
@@ -88,18 +94,19 @@ public class Dolist {
                             }
                             break;
 
-                            /**
-                        case 5: //쓸일 없음
-                            System.out.print("종료");
-                            //choice = null;
-                            continue loop1; //루프1로 돌아가기전에 ID입력창이 뜸 - 실행순서때문에 그럼
-                            */
-                            
+                        /**
+                         * case 5: //쓸일 없음 System.out.print("종료"); //choice =
+                         * null; continue loop1; //루프1로 돌아가기전에 ID입력창이 뜸 -
+                         * 실행순서때문에 그럼
+                         */
                         default:
                             System.out.println("잘못된 선택입니다. 다시 시도하세요.");
 
                     }
-                    System.out.print("Password: ");
+                    
+                    number = id;
+                    
+                    System.out.print("Password&주민등록번호: ");
                     password = scanner.nextLine();
                     if (!(password.length() == 7 && password.matches("^\\d+$"))) { //비밀번호 길이(주민등록번호 7자리)+정수인지 검사
                         System.out.print("잘못된 비밀번호 방식입니다.");
@@ -107,6 +114,32 @@ public class Dolist {
                         // 나중에 비번 변경시에는 문자 사용 가능
                         continue loop1;
                     }
+                    
+                    Security_num = password;
+                    
+                    //id, password,name,number, Major ,Security_num,address, email
+                    System.out.print("이름: ");
+                    name = scanner.nextLine();
+
+                    /**
+                    System.out.print("학번: ");
+                    number = scanner.nextLine();
+                    */
+                    
+                    System.out.print("전공: ");
+                    MajorString = scanner.nextLine(); //아마 버퍼 문제같은데 바로 int형으로 받으면 뭔가 이상해짐
+                    Major = Integer.parseInt(MajorString);
+
+                    
+                    /**
+                    System.out.print("주민등록번호 뒷7자리: ");
+                    Security_num = scanner.nextLine();
+                    */
+                    
+                    
+                    System.out.print("주소: ");
+                    address = scanner.nextLine();
+
                     System.out.print("Email: ");
                     email = scanner.nextLine();
                     if (!(email.endsWith(".com") && email.contains("@"))) { //메일 맞는지 검사'
@@ -121,16 +154,16 @@ public class Dolist {
 
                     switch (userType1) {
                         case 1:
-                            user = new Student(id, password, email); //위에 만든 임시저장공간에 각 사용자별 아이디 비번 메일 넣음
+                            user = new Student(id, password, name, number, Major, Security_num, address, email); //위에 만든 임시저장공간에 각 사용자별 아이디 비번 메일 넣음
                             break;
                         case 2:
-                            user = new Professor(id, password, email);
+                            user = new Professor(id, password, name, number, Major, Security_num, address, email);
                             break;
                         case 3:
-                            user = new BachelorEmployee(id, password, email);
+                            user = new BachelorEmployee(id, password, name, number, Major, Security_num, address, email);
                             break;
                         case 4:
-                            user = new ClassEmployee(id, password, email);
+                            user = new ClassEmployee(id, password, name, number, Major, Security_num, address, email);
                             break;
                         case 5:
                             continue loop1; //다시 처음으로 돌아감

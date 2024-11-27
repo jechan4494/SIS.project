@@ -10,8 +10,8 @@ package cse.oop2.university;
  */
 public class BachelorEmployee extends User{
     
-    public BachelorEmployee(String id, String password, String email) {
-        super(id, password, email);
+    public BachelorEmployee(String id, String password,String name, String number, int Major, String Security_num, String address, String email) {
+        super(id, password,name,number, Major ,Security_num,address, email);
         permission = 3;
     }
     

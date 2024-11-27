@@ -11,8 +11,8 @@ package cse.oop2.university;
 public class Professor extends User{
     
     
-    public Professor(String id, String password, String email) {
-        super(id, password, email);
+    public Professor(String id, String password,String name, String number, int Major, String Security_num, String address, String email) {
+        super(id, password,name,number, Major ,Security_num,address, email);
         permission = 2;
     }
     
