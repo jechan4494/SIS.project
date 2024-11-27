@@ -202,13 +202,13 @@ public class AcademicManagementFrame extends javax.swing.JFrame {
             menuTable.getCellEditor().stopCellEditing();
         }
         new ChangeSaveFile(menuTable, personFile);
-        JOptionPane.showMessageDialog(null,"저장되었습니다.");
+        JOptionPane.showMessageDialog(null, "저장되었습니다.");
     }//GEN-LAST:event_changeButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int selectedRow = menuTable.getSelectedRow();
-        if(selectedRow == -1){
-            JOptionPane.showMessageDialog(this,"삭제할 목록을 선택하시오.","오류입니다",JOptionPane.ERROR_MESSAGE);
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "삭제할 목록을 선택하시오.", "오류입니다", JOptionPane.ERROR_MESSAGE);
             return;
         }
         DefaultTableModel model = (DefaultTableModel) menuTable.getModel();
@@ -216,11 +216,49 @@ public class AcademicManagementFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-      
+
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        
+        String searchQuery = jTextField1.getText().trim();
+    if (searchQuery.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "검색어를 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    DefaultTableModel model = (DefaultTableModel) menuTable.getModel();
+    DefaultTableModel filteredModel = new DefaultTableModel(new Object[][]{}, new String[]{"직업", "학번/교수 번호", "이름", "학과", "주민번호"});
+
+    for (int i = 0; i < model.getRowCount(); i++) {
+        boolean match = false;
+        for (int j = 0; j < model.getColumnCount(); j++) {
+            if (model.getValueAt(i, j) != null && model.getValueAt(i, j).toString().contains(searchQuery)) {
+                match = true;
+                break;
+            }
+        }
+        if (match) {
+            Object[] row = new Object[model.getColumnCount()];
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                row[j] = model.getValueAt(i, j);
+            }
+            filteredModel.addRow(row);
+        }
+    }
+
+    if (filteredModel.getRowCount() == 0) {
+        int option = JOptionPane.showConfirmDialog(this, "검색 결과가 없습니다. 다시 검색하시겠습니까?", "결과 없음", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        if (option == JOptionPane.YES_OPTION) {
+            jTextField1.requestFocus(); // 검색창에 포커스를 다시 설정
+            return;
+        } else {
+            jTextField1.setText(""); // 검색창 초기화
+            LoadPersonList(); // 전체 데이터 다시 로드
+        }
+    } else {
+        menuTable.setModel(filteredModel);
+    }
+
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void LoadPersonList() {
