@@ -8,10 +8,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook; //엑셀 사용 임포트
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;     //예외처리 임포트
 
 /**
  *
+ * 
  * @author namw2
  */
 
@@ -19,15 +21,25 @@ import java.io.IOException;     //예외처리 임포트
 /**
  * 이거 기준을 학번이 안겹치니까 학번을 기준으로 분류하는 코드 만들어야 할듯
  * 그리고 좀 많이 갈아 엎어야 할거같음
- * row = 행 
- * for (Cell cell : row): 각 행 내의 셀(Cell)을 순회합니다.
- * cell.getCellType() - 타입 얻기
- * cell.getStringCellValue() - 문자열 값 출력 / cell.getNumericCellValue() 정수형 값 출력
+ * row = 행 (가로) / cell = 엑셀에서 보이는 가장 작은 한칸
+ * for (Cell cell : row): 각 행 내의 셀(Cell)을 순회.
  * 
+ * cell.getCellType() - 값 형식 가져옴
+ * cell.getStringCellValue() - 문자형 셀 출력
+ * cell.getNumericCellValue() - 숫자형 셀 출력
+ * sheet.getRow() - 행 가져오기
+ * sheet.createRow() - 행 생성하기
+ * row.getCell(0) - row의 셀 가져오기
+ * row.CreateCell(0) - 셀 갱성하기
+ * 
+ * try (FileOutputStream fileOut = new FileOutputStream("user.xlsx")) {
+                workbook.write(fileOut);
+            } - workbook에서 변경된 사항을 외부 엑셀파일에 저장하긴
+ * 주의: 엑셀 파일을 수정했으면 한번 저장후 workbook을 종료후 다시 로드하기
  * 
  */
 
-public class DBcreate {
+public class DBcreate {//엑셀 파일 생성
     public void testDB() {
         try {
             // Excel 파일 경로 설정
@@ -41,43 +53,10 @@ public class DBcreate {
             
             //여기 위에는 그대로 쓰면 됨
             
-            // 모든 행과 열을 순회하며 출력
-            for (Row row : sheet) { //각 행 
-                for (Cell cell : row) {
-                    // 셀의 타입에 따라 값을 출력
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            System.out.print(cell.getStringCellValue() + "\t");
-                            break;
-                        case NUMERIC:
-                            System.out.print(cell.getNumericCellValue() + "\t");
-                            break;
-                        default:
-                            System.out.print("UNKNOWN\t");
-                    }
-                }
-                System.out.println();
-            }
-
-            
-            for (Row row : sheet) { //각 행 
-                for (Cell cell : row) {
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            System.out.print(cell.getStringCellValue() + "\t");
-                            break;
-                        case NUMERIC:
-                            System.out.print(cell.getNumericCellValue() + "\t");
-                            break;
-                        default:
-                            System.out.print("UNKNOWN\t");
-                    }
-                }
-                System.out.println();
-            }
 
             // 파일 닫기
             workbook.close();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

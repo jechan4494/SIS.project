@@ -46,7 +46,7 @@ public class UserManager {
 
     // 모든 사용자 정보 출력 메소드
     // 사용자 분류별로 나눠서 출력
-    // TODO 학번에 따라 정렬
+    
     public void showAllUsers() {
         if (users.isEmpty()) {
             System.out.println("등록된 사용자가 없습니다.");
